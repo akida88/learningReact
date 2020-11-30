@@ -10,12 +10,12 @@ import React from 'react';
 
 import './Person.css';
 
-const person = ( {click,name,age,children,changed} ) => {
+const person = ( {click,name,age,children} ) => {
    return (
       <div className="Person">
          <p onClick={click}>I'm {name} and I am {age} years old!</p>
          <p>{children}</p>
-         <input type="text" onChange={changed}  value={name} />
+         <input type="text"   defaultValue={name} />
       </div>
     )
 };

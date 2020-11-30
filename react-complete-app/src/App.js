@@ -8,12 +8,10 @@ const App = props => {
       { name: 'Matu', age: 29 },
       { name: 'Stephanie', age: 26 }
     ]);
-
+  const [showPersons,setShowPersons] = useState(false);
  // sining a function to a property
-  const switchNameHandler = (newName) => {
-    const newPersons = [...persons];
-    newPersons[0].name = newName;
-    setPersons(newPersons);
+  const showPersonsHandler = () => {
+    setShowPersons(!showPersons);
   };
 
  const nameChangedHandler = (event,index) => {
@@ -22,6 +20,11 @@ const App = props => {
     newPersons[index].name =  event.target.value;
     setPersons(newPersons);
   };
+
+  const deletePersonHandler = (personIndex) => {
+    persons.splice(personIndex, 1);
+    setPersons([...persons]);
+  }
 
   const style = {
       backgroundColor: 'white',
@@ -36,14 +39,15 @@ const App = props => {
       <p>This is really working!</p>
       <button
       style={style} // adding a style property
-      onClick={()=>switchNameHandler('Maximilian')}>Switch Name
+      onClick={showPersonsHandler}>Show persons
       </button>
-      {persons.map((person,index) =>  <Person
+
+      {showPersons && persons.map((person, index) =>  <Person
+       click={() => deletePersonHandler(index)}
        name={person.name}
        age={person.age}
        key={`${person.name}${index}`}
-       click={()=> switchNameHandler(`${person.name}`)}
-       changed={e=>nameChangedHandler(e,index)} >
+     >
        My Hobbies: Dancing
        </Person>)}
     </div>
